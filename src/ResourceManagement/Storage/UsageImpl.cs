@@ -9,7 +9,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent
     /// The implementation of  UsageInner.
     /// </summary>
 ///GENTHASH:Y29tLm1pY3Jvc29mdC5henVyZS5tYW5hZ2VtZW50LnN0b3JhZ2UuaW1wbGVtZW50YXRpb24uVXNhZ2VJbXBs
-    internal partial class UsageImpl : Wrapper<Models.UsageInner>, IStorageUsage
+    internal partial class UsageImpl : Wrapper<UsageInner>, IStorageUsage
     {
         ///GENMHASH:2C82132661E1D40D14D20AEB0584B069:C0C35E00AF4E17F141675A2C05C7067B
         internal UsageImpl(UsageInner innerObject) : base(innerObject)

@@ -28,9 +28,9 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
         /// <summary>
         /// Initializes a new instance of the DateAfterModification class.
         /// </summary>
-        /// <param name="daysAfterModificationGreaterThan">Integer value
-        /// indicating the age in days after last modification</param>
-        public DateAfterModification(int daysAfterModificationGreaterThan)
+        /// <param name="daysAfterModificationGreaterThan">Value indicating the
+        /// age in days after last modification</param>
+        public DateAfterModification(double daysAfterModificationGreaterThan)
         {
             DaysAfterModificationGreaterThan = daysAfterModificationGreaterThan;
             CustomInit();
@@ -42,11 +42,11 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets integer value indicating the age in days after last
+        /// Gets or sets value indicating the age in days after last
         /// modification
         /// </summary>
         [JsonProperty(PropertyName = "daysAfterModificationGreaterThan")]
-        public int DaysAfterModificationGreaterThan { get; set; }
+        public double DaysAfterModificationGreaterThan { get; set; }
 
         /// <summary>
         /// Validate the object.
@@ -59,6 +59,10 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
             if (DaysAfterModificationGreaterThan < 0)
             {
                 throw new ValidationException(ValidationRules.InclusiveMinimum, "DaysAfterModificationGreaterThan", 0);
+            }
+            if (DaysAfterModificationGreaterThan % 1 != 0)
+            {
+                throw new ValidationException(ValidationRules.MultipleOf, "DaysAfterModificationGreaterThan", 1);
             }
         }
     }

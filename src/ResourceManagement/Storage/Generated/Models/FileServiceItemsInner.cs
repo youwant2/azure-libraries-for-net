@@ -13,24 +13,21 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
     using System.Collections.Generic;
     using System.Linq;
 
-    /// <summary>
-    /// The list of blob containers.
-    /// </summary>
-    public partial class ListContainerItemsInner
+    public partial class FileServiceItemsInner
     {
         /// <summary>
-        /// Initializes a new instance of the ListContainerItemsInner class.
+        /// Initializes a new instance of the FileServiceItemsInner class.
         /// </summary>
-        public ListContainerItemsInner()
+        public FileServiceItemsInner()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ListContainerItemsInner class.
+        /// Initializes a new instance of the FileServiceItemsInner class.
         /// </summary>
-        /// <param name="value">The list of blob containers.</param>
-        public ListContainerItemsInner(IList<ListContainerItem> value = default(IList<ListContainerItem>))
+        /// <param name="value">List of file services returned.</param>
+        public FileServiceItemsInner(IList<FileServicePropertiesInner> value = default(IList<FileServicePropertiesInner>))
         {
             Value = value;
             CustomInit();
@@ -42,10 +39,10 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the list of blob containers.
+        /// Gets list of file services returned.
         /// </summary>
         [JsonProperty(PropertyName = "value")]
-        public IList<ListContainerItem> Value { get; set; }
+        public IList<FileServicePropertiesInner> Value { get; private set; }
 
     }
 }

@@ -178,7 +178,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IEnumerable<StorageAccountInner>> ListAsync(this IStorageAccountsOperations operations, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IPage<StorageAccountInner>> ListAsync(this IStorageAccountsOperations operations, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.ListWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
                 {
@@ -210,7 +210,8 @@ namespace Microsoft.Azure.Management.Storage.Fluent
             }
 
             /// <summary>
-            /// Lists the access keys for the specified storage account.
+            /// Lists the access keys or Kerberos keys (if active directory enabled) for
+            /// the specified storage account.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -224,19 +225,24 @@ namespace Microsoft.Azure.Management.Storage.Fluent
             /// Storage account names must be between 3 and 24 characters in length and use
             /// numbers and lower-case letters only.
             /// </param>
+            /// <param name='expand'>
+            /// Specifies type of the key to be listed. Possible value is kerb. Possible
+            /// values include: 'kerb'
+            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<StorageAccountListKeysResultInner> ListKeysAsync(this IStorageAccountsOperations operations, string resourceGroupName, string accountName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<StorageAccountListKeysResultInner> ListKeysAsync(this IStorageAccountsOperations operations, string resourceGroupName, string accountName, ListKeyExpand? expand = default(ListKeyExpand?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListKeysWithHttpMessagesAsync(resourceGroupName, accountName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListKeysWithHttpMessagesAsync(resourceGroupName, accountName, expand, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
             }
 
             /// <summary>
-            /// Regenerates one of the access keys for the specified storage account.
+            /// Regenerates one of the access keys or Kerberos keys for the specified
+            /// storage account.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -252,7 +258,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent
             /// </param>
             /// <param name='keyName'>
             /// The name of storage keys that want to be regenerated, possible values are
-            /// key1, key2.
+            /// key1, key2, kerb1, kerb2.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -429,6 +435,27 @@ namespace Microsoft.Azure.Management.Storage.Fluent
             public static async Task BeginFailoverAsync(this IStorageAccountsOperations operations, string resourceGroupName, string accountName, CancellationToken cancellationToken = default(CancellationToken))
             {
                 (await operations.BeginFailoverWithHttpMessagesAsync(resourceGroupName, accountName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
+            /// Lists all the storage accounts available under the subscription. Note that
+            /// storage keys are not returned; use the ListKeys operation for this.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<StorageAccountInner>> ListNextAsync(this IStorageAccountsOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
     }

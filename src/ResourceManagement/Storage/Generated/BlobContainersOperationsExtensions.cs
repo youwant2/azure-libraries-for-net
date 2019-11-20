@@ -37,12 +37,20 @@ namespace Microsoft.Azure.Management.Storage.Fluent
             /// Storage account names must be between 3 and 24 characters in length and use
             /// numbers and lower-case letters only.
             /// </param>
+            /// <param name='maxpagesize'>
+            /// Optional. Specified maximum number of containers that can be included in
+            /// the list.
+            /// </param>
+            /// <param name='filter'>
+            /// Optional. When specified, only container names starting with the filter
+            /// will be listed.
+            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ListContainerItemsInner> ListAsync(this IBlobContainersOperations operations, string resourceGroupName, string accountName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IPage<ListContainerItem>> ListAsync(this IBlobContainersOperations operations, string resourceGroupName, string accountName, string maxpagesize = default(string), string filter = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListWithHttpMessagesAsync(resourceGroupName, accountName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListWithHttpMessagesAsync(resourceGroupName, accountName, maxpagesize, filter, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -503,6 +511,27 @@ namespace Microsoft.Azure.Management.Storage.Fluent
             public static async Task<LeaseContainerResponseInner> LeaseAsync(this IBlobContainersOperations operations, string resourceGroupName, string accountName, string containerName, LeaseContainerRequest parameters = default(LeaseContainerRequest), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.LeaseWithHttpMessagesAsync(resourceGroupName, accountName, containerName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Lists all containers and does not support a prefix like data plane. Also
+            /// SRP today does not return continuation token.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<ListContainerItem>> ListNextAsync(this IBlobContainersOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

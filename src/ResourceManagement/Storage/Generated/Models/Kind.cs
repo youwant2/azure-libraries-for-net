@@ -8,69 +8,25 @@
 
 namespace Microsoft.Azure.Management.Storage.Fluent.Models
 {
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using System.Runtime;
-    using System.Runtime.Serialization;
+    using Management.ResourceManager;
+    using Management.ResourceManager.Fluent;
+    using Management.ResourceManager.Fluent.Core;
 
+    using Newtonsoft.Json;
     /// <summary>
     /// Defines values for Kind.
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum Kind
+    /// <summary>
+    /// Determine base value for a given allowed value if exists, else return
+    /// the value itself
+    /// </summary>
+    [JsonConverter(typeof(Management.ResourceManager.Fluent.Core.ExpandableStringEnumConverter<Kind>))]
+    public class Kind : Management.ResourceManager.Fluent.Core.ExpandableStringEnum<Kind>
     {
-        [EnumMember(Value = "Storage")]
-        Storage,
-        [EnumMember(Value = "StorageV2")]
-        StorageV2,
-        [EnumMember(Value = "BlobStorage")]
-        BlobStorage,
-        [EnumMember(Value = "FileStorage")]
-        FileStorage,
-        [EnumMember(Value = "BlockBlobStorage")]
-        BlockBlobStorage
-    }
-    internal static class KindEnumExtension
-    {
-        internal static string ToSerializedValue(this Kind? value)
-        {
-            return value == null ? null : ((Kind)value).ToSerializedValue();
-        }
-
-        internal static string ToSerializedValue(this Kind value)
-        {
-            switch( value )
-            {
-                case Kind.Storage:
-                    return "Storage";
-                case Kind.StorageV2:
-                    return "StorageV2";
-                case Kind.BlobStorage:
-                    return "BlobStorage";
-                case Kind.FileStorage:
-                    return "FileStorage";
-                case Kind.BlockBlobStorage:
-                    return "BlockBlobStorage";
-            }
-            return null;
-        }
-
-        internal static Kind? ParseKind(this string value)
-        {
-            switch( value )
-            {
-                case "Storage":
-                    return Kind.Storage;
-                case "StorageV2":
-                    return Kind.StorageV2;
-                case "BlobStorage":
-                    return Kind.BlobStorage;
-                case "FileStorage":
-                    return Kind.FileStorage;
-                case "BlockBlobStorage":
-                    return Kind.BlockBlobStorage;
-            }
-            return null;
-        }
+        public static readonly Kind Storage = Parse("Storage");
+        public static readonly Kind StorageV2 = Parse("StorageV2");
+        public static readonly Kind BlobStorage = Parse("BlobStorage");
+        public static readonly Kind FileStorage = Parse("FileStorage");
+        public static readonly Kind BlockBlobStorage = Parse("BlockBlobStorage");
     }
 }

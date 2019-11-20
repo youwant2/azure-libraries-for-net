@@ -93,6 +93,16 @@ namespace Microsoft.Azure.Management.Storage.Fluent
         IManagementPoliciesOperations ManagementPolicies { get; }
 
         /// <summary>
+        /// Gets the IPrivateEndpointConnectionsOperations.
+        /// </summary>
+        IPrivateEndpointConnectionsOperations PrivateEndpointConnections { get; }
+
+        /// <summary>
+        /// Gets the IPrivateLinkResourcesOperations.
+        /// </summary>
+        IPrivateLinkResourcesOperations PrivateLinkResources { get; }
+
+        /// <summary>
         /// Gets the IBlobServicesOperations.
         /// </summary>
         IBlobServicesOperations BlobServices { get; }
@@ -101,6 +111,16 @@ namespace Microsoft.Azure.Management.Storage.Fluent
         /// Gets the IBlobContainersOperations.
         /// </summary>
         IBlobContainersOperations BlobContainers { get; }
+
+        /// <summary>
+        /// Gets the IFileServicesOperations.
+        /// </summary>
+        IFileServicesOperations FileServices { get; }
+
+        /// <summary>
+        /// Gets the IFileSharesOperations.
+        /// </summary>
+        IFileSharesOperations FileShares { get; }
 
     }
 }

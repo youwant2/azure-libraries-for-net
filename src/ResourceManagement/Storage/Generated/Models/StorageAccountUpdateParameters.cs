@@ -56,16 +56,21 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
         /// <param name="accessTier">Required for storage accounts where kind =
         /// BlobStorage. The access tier used for billing. Possible values
         /// include: 'Hot', 'Cool'</param>
-        /// <param name="enableAzureFilesAadIntegration">Enables Azure Files
-        /// AAD Integration for SMB if sets to true.</param>
+        /// <param name="azureFilesIdentityBasedAuthentication">Provides the
+        /// identity based authentication settings for Azure Files.</param>
         /// <param name="enableHttpsTrafficOnly">Allows https traffic only to
         /// storage service if sets to true.</param>
         /// <param name="networkRuleSet">Network rule set</param>
+        /// <param name="largeFileSharesState">Allow large file shares if sets
+        /// to Enabled. It cannot be disabled once it is enabled. Possible
+        /// values include: 'Disabled', 'Enabled'</param>
+        /// <param name="routingPreference">Maintains information about the
+        /// network routing choice opted by the user for data transfer</param>
         /// <param name="kind">Optional. Indicates the type of storage account.
         /// Currently only StorageV2 value supported by server. Possible values
         /// include: 'Storage', 'StorageV2', 'BlobStorage', 'FileStorage',
         /// 'BlockBlobStorage'</param>
-        public StorageAccountUpdateParameters(SkuInner sku = default(SkuInner), IDictionary<string, string> tags = default(IDictionary<string, string>), Identity identity = default(Identity), CustomDomain customDomain = default(CustomDomain), Encryption encryption = default(Encryption), AccessTier? accessTier = default(AccessTier?), bool? enableAzureFilesAadIntegration = default(bool?), bool? enableHttpsTrafficOnly = default(bool?), NetworkRuleSet networkRuleSet = default(NetworkRuleSet), Kind? kind = default(Kind?))
+        public StorageAccountUpdateParameters(SkuInner sku = default(SkuInner), IDictionary<string, string> tags = default(IDictionary<string, string>), Identity identity = default(Identity), CustomDomain customDomain = default(CustomDomain), Encryption encryption = default(Encryption), AccessTier? accessTier = default(AccessTier?), AzureFilesIdentityBasedAuthentication azureFilesIdentityBasedAuthentication = default(AzureFilesIdentityBasedAuthentication), bool? enableHttpsTrafficOnly = default(bool?), NetworkRuleSet networkRuleSet = default(NetworkRuleSet), LargeFileSharesState largeFileSharesState = default(LargeFileSharesState), RoutingPreference routingPreference = default(RoutingPreference), Kind kind = default(Kind))
         {
             Sku = sku;
             Tags = tags;
@@ -73,9 +78,11 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
             CustomDomain = customDomain;
             Encryption = encryption;
             AccessTier = accessTier;
-            EnableAzureFilesAadIntegration = enableAzureFilesAadIntegration;
+            AzureFilesIdentityBasedAuthentication = azureFilesIdentityBasedAuthentication;
             EnableHttpsTrafficOnly = enableHttpsTrafficOnly;
             NetworkRuleSet = networkRuleSet;
+            LargeFileSharesState = largeFileSharesState;
+            RoutingPreference = routingPreference;
             Kind = kind;
             CustomInit();
         }
@@ -134,11 +141,11 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
         public AccessTier? AccessTier { get; set; }
 
         /// <summary>
-        /// Gets or sets enables Azure Files AAD Integration for SMB if sets to
-        /// true.
+        /// Gets or sets provides the identity based authentication settings
+        /// for Azure Files.
         /// </summary>
-        [JsonProperty(PropertyName = "properties.azureFilesAadIntegration")]
-        public bool? EnableAzureFilesAadIntegration { get; set; }
+        [JsonProperty(PropertyName = "properties.azureFilesIdentityBasedAuthentication")]
+        public AzureFilesIdentityBasedAuthentication AzureFilesIdentityBasedAuthentication { get; set; }
 
         /// <summary>
         /// Gets or sets allows https traffic only to storage service if sets
@@ -154,13 +161,28 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
         public NetworkRuleSet NetworkRuleSet { get; set; }
 
         /// <summary>
+        /// Gets or sets allow large file shares if sets to Enabled. It cannot
+        /// be disabled once it is enabled. Possible values include:
+        /// 'Disabled', 'Enabled'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.largeFileSharesState")]
+        public LargeFileSharesState LargeFileSharesState { get; set; }
+
+        /// <summary>
+        /// Gets or sets maintains information about the network routing choice
+        /// opted by the user for data transfer
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.routingPreference")]
+        public RoutingPreference RoutingPreference { get; set; }
+
+        /// <summary>
         /// Gets or sets optional. Indicates the type of storage account.
         /// Currently only StorageV2 value supported by server. Possible values
         /// include: 'Storage', 'StorageV2', 'BlobStorage', 'FileStorage',
         /// 'BlockBlobStorage'
         /// </summary>
         [JsonProperty(PropertyName = "kind")]
-        public Kind? Kind { get; set; }
+        public Kind Kind { get; set; }
 
         /// <summary>
         /// Validate the object.
@@ -181,6 +203,10 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
             if (Encryption != null)
             {
                 Encryption.Validate();
+            }
+            if (AzureFilesIdentityBasedAuthentication != null)
+            {
+                AzureFilesIdentityBasedAuthentication.Validate();
             }
             if (NetworkRuleSet != null)
             {

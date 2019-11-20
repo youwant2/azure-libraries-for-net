@@ -42,13 +42,21 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
         /// incoming request’s version is not specified. Possible values
         /// include version 2008-10-27 and all more recent versions.</param>
         /// <param name="deleteRetentionPolicy">The blob service properties for
-        /// soft delete.</param>
-        public BlobServicePropertiesInner(string id = default(string), string name = default(string), string type = default(string), CorsRules cors = default(CorsRules), string defaultServiceVersion = default(string), DeleteRetentionPolicy deleteRetentionPolicy = default(DeleteRetentionPolicy))
+        /// blob soft delete.</param>
+        /// <param name="automaticSnapshotPolicyEnabled">Automatic Snapshot is
+        /// enabled if set to true.</param>
+        /// <param name="changeFeed">The blob service properties for change
+        /// feed events.</param>
+        /// <param name="sku">Sku name and tier.</param>
+        public BlobServicePropertiesInner(string id = default(string), string name = default(string), string type = default(string), CorsRules cors = default(CorsRules), string defaultServiceVersion = default(string), DeleteRetentionPolicy deleteRetentionPolicy = default(DeleteRetentionPolicy), bool? automaticSnapshotPolicyEnabled = default(bool?), ChangeFeed changeFeed = default(ChangeFeed), SkuInner sku = default(SkuInner))
             : base(id, name, type)
         {
             Cors = cors;
             DefaultServiceVersion = defaultServiceVersion;
             DeleteRetentionPolicy = deleteRetentionPolicy;
+            AutomaticSnapshotPolicyEnabled = automaticSnapshotPolicyEnabled;
+            ChangeFeed = changeFeed;
+            Sku = sku;
             CustomInit();
         }
 
@@ -76,10 +84,28 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
         public string DefaultServiceVersion { get; set; }
 
         /// <summary>
-        /// Gets or sets the blob service properties for soft delete.
+        /// Gets or sets the blob service properties for blob soft delete.
         /// </summary>
         [JsonProperty(PropertyName = "properties.deleteRetentionPolicy")]
         public DeleteRetentionPolicy DeleteRetentionPolicy { get; set; }
+
+        /// <summary>
+        /// Gets or sets automatic Snapshot is enabled if set to true.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.automaticSnapshotPolicyEnabled")]
+        public bool? AutomaticSnapshotPolicyEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the blob service properties for change feed events.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.changeFeed")]
+        public ChangeFeed ChangeFeed { get; set; }
+
+        /// <summary>
+        /// Gets sku name and tier.
+        /// </summary>
+        [JsonProperty(PropertyName = "sku")]
+        public SkuInner Sku { get; private set; }
 
         /// <summary>
         /// Validate the object.
@@ -92,6 +118,10 @@ namespace Microsoft.Azure.Management.Storage.Fluent.Models
             if (DeleteRetentionPolicy != null)
             {
                 DeleteRetentionPolicy.Validate();
+            }
+            if (Sku != null)
+            {
+                Sku.Validate();
             }
         }
     }

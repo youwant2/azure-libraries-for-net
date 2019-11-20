@@ -8,6 +8,8 @@
 
 namespace Microsoft.Azure.Management.Storage.Fluent
 {
+    using Microsoft.Azure.Management.ResourceManager;
+    using Microsoft.Azure.Management.ResourceManager.Fluent;
     using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
     using Microsoft.Rest;
     using Microsoft.Rest.Azure;
@@ -17,19 +19,12 @@ namespace Microsoft.Azure.Management.Storage.Fluent
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
-    using System.Net.Http;
 
     /// <summary>
     /// The Azure Storage Management API.
     /// </summary>
-    public partial class StorageManagementClient : FluentServiceClientBase<StorageManagementClient>, IStorageManagementClient, IAzureClient
+    public partial class StorageManagementClient : Management.ResourceManager.Fluent.Core.FluentServiceClientBase<StorageManagementClient>, IStorageManagementClient, IAzureClient
     {
-        /// <summary>
-        /// The base URI of the service.
-        /// </summary>
-        //public System.Uri BaseUri { get; set; }
-
         /// <summary>
         /// Gets or sets json serialization settings.
         /// </summary>
@@ -39,11 +34,6 @@ namespace Microsoft.Azure.Management.Storage.Fluent
         /// Gets or sets json deserialization settings.
         /// </summary>
         public JsonSerializerSettings DeserializationSettings { get; private set; }
-
-        ///// <summary>
-        ///// Credentials needed for the client to connect to Azure.
-        ///// </summary>
-        //public ServiceClientCredentials Credentials { get; private set; }
 
         /// <summary>
         /// The ID of the target subscription.
@@ -99,6 +89,16 @@ namespace Microsoft.Azure.Management.Storage.Fluent
         public virtual IManagementPoliciesOperations ManagementPolicies { get; private set; }
 
         /// <summary>
+        /// Gets the IPrivateEndpointConnectionsOperations.
+        /// </summary>
+        public virtual IPrivateEndpointConnectionsOperations PrivateEndpointConnections { get; private set; }
+
+        /// <summary>
+        /// Gets the IPrivateLinkResourcesOperations.
+        /// </summary>
+        public virtual IPrivateLinkResourcesOperations PrivateLinkResources { get; private set; }
+
+        /// <summary>
         /// Gets the IBlobServicesOperations.
         /// </summary>
         public virtual IBlobServicesOperations BlobServices { get; private set; }
@@ -109,13 +109,22 @@ namespace Microsoft.Azure.Management.Storage.Fluent
         public virtual IBlobContainersOperations BlobContainers { get; private set; }
 
         /// <summary>
+        /// Gets the IFileServicesOperations.
+        /// </summary>
+        public virtual IFileServicesOperations FileServices { get; private set; }
+
+        /// <summary>
+        /// Gets the IFileSharesOperations.
+        /// </summary>
+        public virtual IFileSharesOperations FileShares { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of the StorageManagementClient class.
         /// </summary>
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public StorageManagementClient(RestClient restClient)
-            : base(restClient)
+        public StorageManagementClient(RestClient restClient) : base(restClient)
         {
         }
 
@@ -133,10 +142,14 @@ namespace Microsoft.Azure.Management.Storage.Fluent
             StorageAccounts = new StorageAccountsOperations(this);
             Usages = new UsagesOperations(this);
             ManagementPolicies = new ManagementPoliciesOperations(this);
+            PrivateEndpointConnections = new PrivateEndpointConnectionsOperations(this);
+            PrivateLinkResources = new PrivateLinkResourcesOperations(this);
             BlobServices = new BlobServicesOperations(this);
             BlobContainers = new BlobContainersOperations(this);
-            BaseUri = new System.Uri("https://management.azure.com");
-            ApiVersion = "2018-11-01";
+            FileServices = new FileServicesOperations(this);
+            FileShares = new FileSharesOperations(this);
+            this.BaseUri = new System.Uri("https://management.azure.com");
+            ApiVersion = "2019-06-01";
             AcceptLanguage = "en-US";
             LongRunningOperationRetryTimeout = 30;
             GenerateClientRequestId = true;

@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 namespace Microsoft.Azure.Management.Storage.Fluent
 {
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -9,10 +10,10 @@ namespace Microsoft.Azure.Management.Storage.Fluent
     /// An immutable client-side representation of an Azure storage account.
     /// </summary>
     public interface IStorageAccount :
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.IGroupableResource<Microsoft.Azure.Management.Storage.Fluent.IStorageManager, Models.StorageAccountInner>,
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.ResourceActions.IRefreshable<Microsoft.Azure.Management.Storage.Fluent.IStorageAccount>,
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.ResourceActions.IUpdatable<StorageAccount.Update.IUpdate>,
-        Microsoft.Azure.Management.Storage.Fluent.IStorageAccountBeta
+        ResourceManager.Fluent.Core.IGroupableResource<IStorageManager, Models.StorageAccountInner>,
+        ResourceManager.Fluent.Core.ResourceActions.IRefreshable<IStorageAccount>,
+        ResourceManager.Fluent.Core.ResourceActions.IUpdatable<StorageAccount.Update.IUpdate>,
+        IStorageAccountBeta
     {
         /// <summary>
         /// Gets the creation date and time of the storage account in UTC.
@@ -30,7 +31,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent
         /// the storage account is available or unavailable. Possible values include:
         /// 'Available', 'Unavailable'.
         /// </summary>
-        Microsoft.Azure.Management.Storage.Fluent.AccountStatuses AccountStatuses { get; }
+        AccountStatuses AccountStatuses { get; }
 
         /// <summary>
         /// Gets access tier used for billing. Access tier cannot be changed more
@@ -43,7 +44,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent
         /// <summary>
         /// Gets the encryption statuses indexed by storage service type.
         /// </summary>
-        System.Collections.Generic.IReadOnlyDictionary<Microsoft.Azure.Management.Storage.Fluent.StorageService, Microsoft.Azure.Management.Storage.Fluent.IStorageAccountEncryptionStatus> EncryptionStatuses { get; }
+        System.Collections.Generic.IReadOnlyDictionary<StorageService, IStorageAccountEncryptionStatus> EncryptionStatuses { get; }
 
         /// <return>Gets the encryption settings on the account.</return>
         /// <summary>
@@ -65,7 +66,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent
         /// queue or table object. Note that StandardZRS and PremiumLRS accounts
         /// only return the blob endpoint.
         /// </summary>
-        Microsoft.Azure.Management.Storage.Fluent.PublicEndpoints EndPoints { get; }
+        PublicEndpoints EndPoints { get; }
 
         /// <summary>
         /// Gets the kind of the storage account. Possible values are 'Storage',
@@ -120,5 +121,27 @@ namespace Microsoft.Azure.Management.Storage.Fluent
         /// Gets whether Hns is enabled on the storage account.
         /// </summary>
         bool? HnsEnabled { get; }
+
+        /// <summary>
+        /// Gets the identity based authentication settings for Azure Files.
+        /// </summary>
+        Models.AzureFilesIdentityBasedAuthentication AzureFilesIdentityBasedAuthentication { get; }
+
+        /// <summary>
+        /// Gets whether large file share state is enabled.
+        /// </summary>
+        bool LargeFileShareEnabled { get; }
+
+        /// <summary>
+        /// Gets list of private endpoint connection associated with the
+        /// specified storage account
+        /// </summary>
+        IList<IPrivateEndpointConnection> PrivateEndpointConnections { get; }
+
+        /// <summary>
+        /// Gets information about the network routing choice
+        /// opted by the user for data transfer
+        /// </summary>
+        Models.RoutingPreference RoutingPreference { get; }
     }
 }

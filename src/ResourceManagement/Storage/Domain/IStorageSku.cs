@@ -29,7 +29,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent
         /// <summary>
         /// Gets the storage account kind if the sku describes a storage account resource.
         /// </summary>
-        Models.Kind? StorageAccountKind { get; }
+        Models.Kind StorageAccountKind { get; }
 
         /// <summary>
         /// Gets the sku name.

@@ -7,24 +7,62 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
     /// <summary>
     /// The stage of a storage account definition allowing to specify sku.
     /// </summary>
-    public interface IWithSku :
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithSkuBeta
+    public interface IWithSku
     {
         /// <summary>
-        /// Specifies the sku of the storage account.
+        /// Specifies the sku name of the storage account to be 'Standard_LRS'.
         /// </summary>
-        /// <deprecated>Use  IWithSku.WithSku(StorageAccountSkuType) instead.</deprecated>
-        /// <param name="skuName">The sku.</param>
         /// <return>The next stage of storage account definition.</return>
-       [System.Obsolete("IIWithSku.WithSku(SkuName) is deprecated, use IWithSku.WithSku(StorageAccountSkuType) instead.")]
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithSku(SkuName skuName);
+        IWithCreate WithSkuNameStandardLRS();
+
+        /// <summary>
+        /// Specifies the sku name of the storage account to be 'Standard_GRS'.
+        /// </summary>
+        /// <return>The next stage of storage account definition.</return>
+        IWithCreate WithSkuNameStandardGRS();
+
+        /// <summary>
+        /// Specifies the sku name of the storage account to be 'Standard_RAGRS'.
+        /// </summary>
+        /// <return>The next stage of storage account definition.</return>
+        IWithCreate WithSkuNameStandardRAGRS();
+
+        /// <summary>
+        /// Specifies the sku name of the storage account to be 'Standard_ZRS'.
+        /// </summary>
+        /// <return>The next stage of storage account definition.</return>
+        IWithCreate WithSkuNameStandardZRS();
+
+        /// <summary>
+        /// Specifies the sku name of the storage account to be 'Premium_LRS'.
+        /// </summary>
+        /// <return>The next stage of storage account definition.</return>
+        IWithCreate WithSkuNamePremiumLRS();
+
+        /// <summary>
+        /// Specifies the sku name of the storage account to be 'Premium_ZRS'.
+        /// </summary>
+        /// <return>The next stage of storage account definition.</return>
+        IWithCreate WithSkuNamePremiumZRS();
+
+        /// <summary>
+        /// Specifies the sku name of the storage account to be 'Standard_GZRS'.
+        /// </summary>
+        /// <return>The next stage of storage account definition.</return>
+        IWithCreate WithSkuNameStandardGZRS();
+
+        /// <summary>
+        /// Specifies the sku name of the storage account to be 'Standard_RAGRS'.
+        /// </summary>
+        /// <return>The next stage of storage account definition.</return>
+        IWithCreate WithSkuNameStandardRAGZRS();
     }
 
     /// <summary>
     /// The stage of storage account definition allowing to set access tier.
     /// </summary>
     public interface IWithCreateAndAccessTier :
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate
+        IWithCreate
     {
         /// <summary>
         /// Specifies the access tier used for billing.
@@ -34,14 +72,14 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
         /// </summary>
         /// <param name="accessTier">The access tier value.</param>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithAccessTier(AccessTier accessTier);
+        IWithCreate WithAccessTier(AccessTier accessTier);
     }
 
     /// <summary>
     /// The stage of a storage account definition allowing to enable implicit managed service identity (MSI).
     /// </summary>
     public interface IWithManagedServiceIdentity :
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithManagedServiceIdentityBeta
+        IWithManagedServiceIdentityBeta
     {
     }
 
@@ -49,7 +87,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
     /// The stage of a storage account definition allowing to specify encryption settings.
     /// </summary>
     public interface IWithEncryption :
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithEncryptionBeta
+        IWithEncryptionBeta
     {
         /// <summary>
         /// Specifies that encryption needs be enabled for blob service.
@@ -57,20 +95,20 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
         /// <deprecated>Use  WithEncryption.WithBlobEncryption() instead.</deprecated>
         /// <return>The next stage of storage account definition.</return>
         [System.Obsolete("IWithEncryption.WithEncryption() is deprecated, use IWithEncryption.withBlobEncryption() instead.")]
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithEncryption();
+        IWithCreate WithEncryption();
     }
 
     /// <summary>
     /// The stage of storage account definition allowing to restrict access protocol.
     /// </summary>
     public interface IWithAccessTraffic :
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.IBeta
+        ResourceManager.Fluent.Core.IBeta
     {
         /// <summary>
         /// Specifies that only https traffic should be allowed to storage account.
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithOnlyHttpsTraffic();
+        IWithCreate WithOnlyHttpsTraffic();
     }
 
     /// <summary>
@@ -83,14 +121,14 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
         /// general purposes.
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithGeneralPurposeAccountKindV2();
+        IWithCreate WithGeneralPurposeAccountKindV2();
 
         /// <summary>
         /// Specifies the storage account kind to be "Storage", the kind for
         /// general purposes.
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithGeneralPurposeAccountKind();
+        IWithCreate WithGeneralPurposeAccountKind();
     }
 
     /// <summary>
@@ -103,14 +141,14 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
         /// </summary>
         /// <param name="customDomain">The user domain assigned to the storage account.</param>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithCustomDomain(CustomDomain customDomain);
+        IWithCreate WithCustomDomain(CustomDomain customDomain);
 
         /// <summary>
         /// Specifies the user domain assigned to the storage account.
         /// </summary>
         /// <param name="name">The custom domain name, which is the CNAME source.</param>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithCustomDomain(string name);
+        IWithCreate WithCustomDomain(string name);
 
         /// <summary>
         /// Specifies the user domain assigned to the storage account.
@@ -118,54 +156,54 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
         /// <param name="name">The custom domain name, which is the CNAME source.</param>
         /// <param name="useSubDomain">Whether indirect CName validation is enabled.</param>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithCustomDomain(string name, bool useSubDomain);
+        IWithCreate WithCustomDomain(string name, bool useSubDomain);
     }
 
     /// <summary>
     /// The stage of storage account definition allowing to configure network access settings.
     /// </summary>
     public interface IWithNetworkAccess :
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.IBeta
+        ResourceManager.Fluent.Core.IBeta
     {
         /// <summary>
         /// Specifies that access to the storage account from the specific virtual network subnet should be allowed.
         /// </summary>
         /// <param name="subnetId">The virtual network subnet id.</param>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithAccessFromNetworkSubnet(string subnetId);
+        IWithCreate WithAccessFromNetworkSubnet(string subnetId);
 
         /// <summary>
         /// Specifies that access to the storage account should be allowed from applications running
         /// on Microsoft Azure services.
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithAccessFromAzureServices();
+        IWithCreate WithAccessFromAzureServices();
 
         /// <summary>
         /// Specifies that access to the storage account from the specific ip address should be allowed.
         /// </summary>
         /// <param name="ipAddress">The ip address.</param>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithAccessFromIpAddress(string ipAddress);
+        IWithCreate WithAccessFromIpAddress(string ipAddress);
 
         /// <summary>
         /// Specifies that access to the storage account from the specific ip range should be allowed.
         /// </summary>
         /// <param name="ipAddressCidr">The ip address range expressed in cidr format.</param>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithAccessFromIpAddressRange(string ipAddressCidr);
+        IWithCreate WithAccessFromIpAddressRange(string ipAddressCidr);
 
         /// <summary>
         /// Specifies that read access to the storage logging should be allowed from any network.
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithReadAccessToLogEntriesFromAnyNetwork();
+        IWithCreate WithReadAccessToLogEntriesFromAnyNetwork();
 
         /// <summary>
         /// Specifies that read access to the storage metrics should be allowed from any network.
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithReadAccessToMetricsFromAnyNetwork();
+        IWithCreate WithReadAccessToMetricsFromAnyNetwork();
 
         /// <summary>
         /// Specifies that by default access to storage account should be denied from
@@ -175,28 +213,28 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
         /// WithNetworkAccess.withAccessFromIpAddressRange(String).
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithAccessFromSelectedNetworks();
+        IWithCreate WithAccessFromSelectedNetworks();
 
         /// <summary>
         /// Specifies that by default access to storage account should be allowed from all networks.
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithAccessFromAllNetworks();
+        IWithCreate WithAccessFromAllNetworks();
     }
 
     /// <summary>
     /// The stage of storage account definition allowing to configure whether Hns is enabled or not.
     /// </summary>
     public interface IWithHns :
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.IBeta
+        ResourceManager.Fluent.Core.IBeta
     {
-        
+
         /// <summary>
         /// Specifies whether Hns is enabled or not.
         /// </summary>
         /// <param name="enabled">whether Hns is enabled for the storage account or not</param>
         /// <returns>The next stage of the storage account definition.</returns>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithHnsEnabled(bool enabled);
+        IWithCreate WithHnsEnabled(bool enabled);
 
     }
 
@@ -204,7 +242,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
     /// The stage of storage account definition allowing to configure network access settings.
     /// </summary>
     public interface IWithAzureFilesAadIntegration :
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.IBeta
+        ResourceManager.Fluent.Core.IBeta
     {
 
         /// <summary>
@@ -212,7 +250,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
         /// </summary>
         /// <param name="enabled">whether Hns is enabled for the storage account or not</param>
         /// <returns>The next stage of the storage account definition.</returns>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithAzureFilesAadIntegrationEnabled(bool enabled);
+        IWithCreate WithAzureFilesAadIntegrationEnabled(bool enabled);
 
     }
 
@@ -222,7 +260,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
     /// The first stage of the storage account definition.
     /// </summary>
     public interface IBlank :
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.Resource.Definition.IDefinitionWithRegion<Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithGroup>
+        ResourceManager.Fluent.Core.Resource.Definition.IDefinitionWithRegion<IWithGroup>
     {
     }
 
@@ -230,7 +268,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
     /// The stage of a storage account definition allowing to specify the resource group.
     /// </summary>
     public interface IWithGroup :
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.GroupableResource.Definition.IWithGroup<Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate>
+        ResourceManager.Fluent.Core.GroupableResource.Definition.IWithGroup<IWithCreate>
     {
     }
 
@@ -240,20 +278,20 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
     /// specify.
     /// </summary>
     public interface IWithCreate :
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.ResourceActions.ICreatable<Microsoft.Azure.Management.Storage.Fluent.IStorageAccount>,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithSku,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithBlobStorageAccountKind,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithGeneralPurposeAccountKind,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithFileStorageAccountKind,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithBlockBlobStorageAccountKind,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithEncryption,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCustomDomain,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithManagedServiceIdentity,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithAccessTraffic,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithNetworkAccess,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithHns,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithAzureFilesAadIntegration,
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.Resource.Definition.IDefinitionWithTags<Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate>
+        ResourceManager.Fluent.Core.ResourceActions.ICreatable<IStorageAccount>,
+        IWithSku,
+        IWithBlobStorageAccountKind,
+        IWithGeneralPurposeAccountKind,
+        IWithFileStorageAccountKind,
+        IWithBlockBlobStorageAccountKind,
+        IWithEncryption,
+        IWithCustomDomain,
+        IWithManagedServiceIdentity,
+        IWithAccessTraffic,
+        IWithNetworkAccess,
+        IWithHns,
+        IWithAzureFilesAadIntegration,
+        ResourceManager.Fluent.Core.Resource.Definition.IDefinitionWithTags<IWithCreate>
     {
     }
 
@@ -261,10 +299,10 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
     /// Container interface for all the definitions that need to be implemented.
     /// </summary>
     public interface IDefinition :
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IBlank,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithGroup,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate,
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreateAndAccessTier
+        IBlank,
+        IWithGroup,
+        IWithCreate,
+        IWithCreateAndAccessTier
     {
     }
 
@@ -278,7 +316,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
         /// tier is defaulted to be "Hot".
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreateAndAccessTier WithBlobStorageAccountKind();
+        IWithCreateAndAccessTier WithBlobStorageAccountKind();
     }
 
     /// <summary>
@@ -290,7 +328,7 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
         /// Specifies the storage account kind to be "BlockBlobStorage". 
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithBlockBlobStorageAccountKind();
+        IWithCreate WithBlockBlobStorageAccountKind();
     }
 
     /// <summary>
@@ -302,41 +340,27 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
         /// Specifies the storage account kind to be "FileStorage". 
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithFileStorageAccountKind();
-    }
-
-    /// <summary>
-    /// The stage of a storage account definition allowing to specify sku.
-    /// </summary>
-    public interface IWithSkuBeta :
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.IBeta
-    {
-        /// <summary>
-        /// Specifies the sku of the storage account.
-        /// </summary>
-        /// <param name="sku">The sku.</param>
-        /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithSku(StorageAccountSkuType sku);
+        IWithCreate WithFileStorageAccountKind();
     }
 
     /// <summary>
     /// The stage of a storage account definition allowing to enable implicit managed service identity (MSI).
     /// </summary>
     public interface IWithManagedServiceIdentityBeta :
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.IBeta
+        ResourceManager.Fluent.Core.IBeta
     {
         /// <summary>
         /// Specifies that implicit managed service identity (MSI) needs to be enabled.
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithSystemAssignedManagedServiceIdentity();
+        IWithCreate WithSystemAssignedManagedServiceIdentity();
     }
 
     /// <summary>
     /// The stage of a storage account definition allowing to specify encryption settings.
     /// </summary>
     public interface IWithEncryptionBeta :
-        Microsoft.Azure.Management.ResourceManager.Fluent.Core.IBeta
+        ResourceManager.Fluent.Core.IBeta
     {
         /// <summary>
         /// Specifies the KeyVault key to be used as encryption key.
@@ -345,30 +369,69 @@ namespace Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition
         /// <param name="keyName">The KeyVault key name.</param>
         /// <param name="keyVersion">The KeyVault key version.</param>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithEncryptionKeyFromKeyVault(string keyVaultUri, string keyName, string keyVersion);
+        IWithCreate WithEncryptionKeyFromKeyVault(string keyVaultUri, string keyName, string keyVersion);
 
         /// <summary>
         /// Disables encryption for blob service.
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithoutBlobEncryption();
+        IWithCreate WithoutBlobEncryption();
 
         /// <summary>
         /// Specifies that encryption needs be enabled for file service.
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithFileEncryption();
+        IWithCreate WithFileEncryption();
 
         /// <summary>
         /// Specifies that encryption needs be enabled for blob service.
         /// </summary>
         /// <return>The next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithBlobEncryption();
+        IWithCreate WithBlobEncryption();
 
         /// <summary>
         /// Disables encryption for file service.
         /// </summary>
         /// <return>He next stage of storage account definition.</return>
-        Microsoft.Azure.Management.Storage.Fluent.StorageAccount.Definition.IWithCreate WithoutFileEncryption();
+        IWithCreate WithoutFileEncryption();
+    }
+
+    public interface IWithDirectoryServiceNonAD
+    {
+        IWithCreate WithDirectoryServiceAADS();
+
+        IWithCreate WithDirectoryServiceNone();
+    }
+
+    public interface IWithDirectoryServiceAD
+    {
+        IWithActiveDirectory WithDirectoryServiceAD();
+    }
+
+    public interface IWithActiveDirectory : IWithCreate
+    {
+        IWithActiveDirectory WithActiveDirectoryAzureStorageSid(string azureStorageSid);
+
+        IWithActiveDirectory WithActiveDirectoryDomainGuid(string domainGuid);
+
+        IWithActiveDirectory WithActiveDirectoryDomainName(string domainName);
+
+        IWithActiveDirectory WithActiveDirectoryDomainSid(string domainSid);
+
+        IWithActiveDirectory WithActiveDirectoryForestName(string forestName);
+
+        IWithActiveDirectory WithActiveDirectoryNetBiosDomainName(string netBiosDomainName);
+    }
+
+    public interface IWithLargeFileShareState
+    {
+        IWithCreate EnableLargeFileShare();
+    }
+
+    public interface IWithRoutingPreference
+    {
+        IWithCreate ChooseMicrosoftRoutingPerfer();
+
+        IWithCreate ChooseInternetRouting();
     }
 }
